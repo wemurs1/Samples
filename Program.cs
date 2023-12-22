@@ -14,7 +14,7 @@ public class AVLTree
 {
 	// Function to print the preorder
 	// traversal of the AVL tree
-	public static void PrintPreorder(AVLwithparent? root)
+	public static void PrintPreorder(AVLwithparent? root, bool leftRightPrint = false)
 	{
 		// Print the node's value along
 		// with its parent value
@@ -27,23 +27,33 @@ public class AVLTree
 		Console.Write("Node: " + root.Key + " Parent Node: ");
 		if (root.Parent != null)
 		{
-			Console.WriteLine(root.Parent.Key);
+			Console.Write(root.Parent.Key);
 		}
 		else
 		{
-			Console.WriteLine("null");
+			Console.Write("null");
+		}
+
+		if (leftRightPrint)
+		{
+			string leftKey = root.Left != null ? root.Left.Key.ToString() :  "null";
+			string rightKey = root.Right != null ? root.Right.Key.ToString() :  "null";
+			Console.WriteLine($" Left Key: {leftKey}, Right Key: {rightKey}");
+		}
+		else{
+			Console.WriteLine("");
 		}
 
 		// Recur to the left subtree
 		if (root.Left != null)
 		{
-			PrintPreorder(root.Left);
+			PrintPreorder(root.Left, leftRightPrint);
 		}
 
 		// Recur to the right subtree
 		if (root.Right != null)
 		{
-			PrintPreorder(root.Right);
+			PrintPreorder(root.Right, leftRightPrint);
 		}
 	}
 
@@ -551,21 +561,36 @@ public class AVLTree
 		AVLwithparent? root = null;
 
 		// Function call to insert the nodes
-		root = Insert(root, null, 9);
-		root = Insert(root, null, 5);
+		// root = Insert(root, null, 9);
+		// root = Insert(root, null, 5);
+		// root = Insert(root, null, 10);
+		// root = Insert(root, null, 0);
+		// root = Insert(root, null, 6);
 		root = Insert(root, null, 10);
-		root = Insert(root, null, 0);
-		root = Insert(root, null, 6);
+		root = Insert(root, null, 25);
+		root = Insert(root, null, 20);
+		root = Insert(root, null, 28);
+		root = Insert(root, null, 30);
+		root = Insert(root, null, 22);
+		root = Insert(root, null, 48);
+		root = Insert(root, null, 36);
+		root = Insert(root, null, 12);
+		root = Insert(root, null, 38);
+		root = Insert(root, null, 40);
 
 		// Print the tree before deleting node
 		Console.WriteLine("Before deletion:");
-		PrintPreorder(root);
+		PrintPreorder(root, true);
 
 		// Function Call to delete node 10
 		root = Delete(root, 10);
 
 		// Print the tree after deleting node
-		Console.WriteLine("After deletion:");
-		PrintPreorder(root);
+		Console.WriteLine("After deletion (10):");
+		PrintPreorder(root, true);
+
+		root = Delete(root, 22);
+		Console.WriteLine("After deletion (22):");
+		PrintPreorder(root, true);
 	}
 }
